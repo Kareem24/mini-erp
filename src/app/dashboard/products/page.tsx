@@ -1,7 +1,9 @@
+import { getProducts } from "@/api/get-all-products";
 import DeleteModal from "@/components/delete-modal";
 import EmptyProduct from "@/components/empty-product";
 import { FormModal } from "@/components/form-modal";
 import AddProductForm from "@/components/products/add-product-form";
+import SearchInput from "@/components/search-input";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -12,13 +14,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Products } from "@/lib/types";
-import { createClient } from "@/utils/supabase/server";
 
-const ProductPage = async () => {
-  const supabase = await createClient();
-  // Fetch products from the database
+const ProductPage = async ({
+  searchParams,
+}: {
+  searchParams: Record<string, string | undefined>;
+}) => {
+  const filter = {
+    search: searchParams.search || "",
+  };
 
-  const { data, error } = await supabase.from("products").select("*");
+  const { data, error } = await getProducts(filter);
 
   const products = data as Products[];
 
@@ -31,19 +37,26 @@ const ProductPage = async () => {
 
   return (
     <div>
-      {products.length < 1 ? (
+      {products.length < 1 && !filter.search ? (
         <EmptyProduct />
       ) : (
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-semibold">Products</h1>
-            <FormModal
-              form={<AddProductForm />}
-              modalDescription="Add New Product To The list"
-              modalTitle="Add Product"
-            >
-              <Button>Add Product</Button>
-            </FormModal>
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl font-semibold">
+                Products({products.length})
+              </h1>
+              <SearchInput />
+            </div>
+            <div>
+              <FormModal
+                form={<AddProductForm />}
+                modalDescription="Add New Product To The list"
+                modalTitle="Add Product"
+              >
+                <Button>Add Product</Button>
+              </FormModal>
+            </div>
           </div>
 
           <Table>
