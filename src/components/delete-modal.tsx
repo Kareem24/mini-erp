@@ -1,33 +1,34 @@
-"use client";
-import { useState } from "react";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import React from "react";
-import { DialogHeader } from "./ui/dialog";
-import { Button } from "./ui/button";
-import { useDeleteProduct } from "@/hooks/use-delete-product";
+
+interface DeleteModalProps {
+  children: React.ReactNode;
+  modalTitle: string;
+  modalDescription: string;
+  id: string;
+  open: boolean;
+  isPending: boolean;
+  handleDelete: (id: string) => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const DeleteModal = ({
   children,
-  productId,
-}: {
-  children: React.ReactNode;
-  productId: string;
-}) => {
-  const [open, setOpen] = useState(false);
-  const { isPending, mutate: deleteProduct } = useDeleteProduct();
-  const handleDelete = (id: string) => {
-    deleteProduct(id, {
-      onSuccess: () => {
-        setOpen(false);
-      },
-    });
-  };
+  modalTitle,
+  modalDescription,
+  open,
+  id,
+  isPending,
+  setOpen,
+  handleDelete,
+}: DeleteModalProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -41,13 +42,8 @@ const DeleteModal = ({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
-            Are you sure you want to delete this product?
-          </DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete the
-            product from the list.
-          </DialogDescription>
+          <DialogTitle>{modalTitle}</DialogTitle>
+          <DialogDescription>{modalDescription}</DialogDescription>
         </DialogHeader>
         <div className="flex justify-end mt-4">
           <Button
@@ -57,7 +53,7 @@ const DeleteModal = ({
             Cancel
           </Button>
           <Button
-            onClick={() => handleDelete(productId)}
+            onClick={() => handleDelete(id)}
             className="bg-red-500 text-white px-4 py-2 rounded"
             disabled={isPending}
           >

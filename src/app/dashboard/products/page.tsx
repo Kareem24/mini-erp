@@ -1,6 +1,7 @@
 import { getProducts } from "@/api/get-all-products";
 import DeleteModal from "@/components/delete-modal";
-import EmptyProduct from "@/components/empty-product";
+import EmptyProduct from "@/components/products/empty-product";
+import FilterProduct from "@/components/products/filter-product";
 import { FormModal } from "@/components/form-modal";
 import AddProductForm from "@/components/products/add-product-form";
 import SearchInput from "@/components/search-input";
@@ -14,6 +15,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Products } from "@/lib/types";
+import { PlusCircle } from "lucide-react";
+import DeleteProduct from "@/components/products/delete-product";
 
 const ProductPage = async ({
   searchParams,
@@ -22,11 +25,14 @@ const ProductPage = async ({
 }) => {
   const filter = {
     search: searchParams.search || "",
+    query: searchParams.query || "",
   };
 
   const { data, error } = await getProducts(filter);
 
   const products = data as Products[];
+
+  console.log(data);
 
   if (error) {
     console.error("Error fetching products:", error.message);
@@ -37,7 +43,7 @@ const ProductPage = async ({
 
   return (
     <div>
-      {products.length < 1 && !filter.search ? (
+      {products.length < 1 && !filter.search && !filter.query ? (
         <EmptyProduct />
       ) : (
         <div className="p-6">
@@ -48,13 +54,19 @@ const ProductPage = async ({
               </h1>
               <SearchInput />
             </div>
-            <div>
+            <div className="flex items-center gap-2">
+              <FilterProduct />
               <FormModal
                 form={<AddProductForm />}
                 modalDescription="Add New Product To The list"
                 modalTitle="Add Product"
               >
-                <Button>Add Product</Button>
+                <Button className="flex items-center gap-2">
+                  <span>
+                    <PlusCircle />
+                  </span>
+                  <span className="hidden md:block">Add Product</span>
+                </Button>
               </FormModal>
             </div>
           </div>
@@ -92,7 +104,7 @@ const ProductPage = async ({
                         Edit
                       </Button>
                     </FormModal>
-                    <DeleteModal productId={product.id}>Delete</DeleteModal>
+                    <DeleteProduct productId={product.id}>Delete</DeleteProduct>
                   </TableCell>
                 </TableRow>
               ))}

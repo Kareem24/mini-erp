@@ -3,6 +3,7 @@
 import {
   ArrowUpCircleIcon,
   BarChartIcon,
+  BookIcon,
   CameraIcon,
   CarrotIcon,
   ClipboardListIcon,
@@ -16,6 +17,7 @@ import {
   SearchIcon,
   SettingsIcon,
   User2Icon,
+  UserCog2Icon,
 } from "lucide-react";
 import * as React from "react";
 
@@ -30,7 +32,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import path from "path";
 
 const data = {
   user: {
@@ -55,19 +56,24 @@ const data = {
       icon: BarChartIcon,
     },
     {
-      title: "Messages",
-      url: "/dashboard/messages",
-      icon: MessageSquare,
-    },
-    {
-      title: "Settings",
-      url: "/dashboard/settings",
-      icon: SettingsIcon,
+      title: "Customers",
+      url: "/dashboard/customers",
+      icon: UserCog2Icon,
     },
     {
       title: "Products",
       url: "/dashboard/products",
       icon: CarrotIcon,
+    },
+    {
+      title: "Sales",
+      url: "/dashboard/sales",
+      icon: BookIcon,
+    },
+    {
+      title: "Settings",
+      url: "/dashboard/settings",
+      icon: SettingsIcon,
     },
   ],
   navClouds: [

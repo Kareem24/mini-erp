@@ -16,7 +16,7 @@ const SearchInput = () => {
       param.delete("search");
     }
     replace(`${pathname}?${param.toString()}`);
-  }, 600);
+  }, 400);
   return (
     <div>
       <Input
