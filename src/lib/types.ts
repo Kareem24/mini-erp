@@ -19,3 +19,14 @@ export interface Customers extends CustomerFormValue {
   id: string;
   user_id: string;
 }
+
+export interface Customer {
+  id: string;
+  full_name: string;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+}
