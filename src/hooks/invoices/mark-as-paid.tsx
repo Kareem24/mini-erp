@@ -13,7 +13,7 @@ const markAsPaid = async (invoiceId: string) => {
 export const useMarkAsPaid = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: markAsPaid,
-    onSuccess: (data) => {
+    onSuccess: () => {
       revalidateRoutePath("/dashboard/invoices/[invoiceId]");
     },
     onError: (error) => {
