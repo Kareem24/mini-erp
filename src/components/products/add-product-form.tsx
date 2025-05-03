@@ -60,7 +60,10 @@ const AddProductForm = ({ id, data }: AddProductFormProps) => {
 
   const handleSubmit = (data: z.infer<typeof FormSchema>) => {
     const productData: ProductFormValues = {
-      ...data,
+      name: data.name || "",
+      description: data.description || "",
+      price: data.price || 0,
+      stock: data.stock || 0,
     };
     console.log("Form data:", productData);
     addData(productData, {

@@ -1,8 +1,8 @@
 export interface ProductFormValues {
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
+  name?: string;
+  description?: string;
+  price?: number;
+  stock?: number;
 }
 
 export interface CustomerFormValue {
@@ -12,6 +12,7 @@ export interface CustomerFormValue {
   phone: string;
 }
 export interface Products extends ProductFormValues {
+  [x: string]: string | number | Date;
   id: string;
 }
 
