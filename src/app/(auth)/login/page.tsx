@@ -1,4 +1,5 @@
 import { signInAction } from "@/aciton";
+import { getProducts } from "@/lib/data-service/get-all-products";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,9 @@ import Link from "next/link";
 export default async function LoginPage(props: {
   searchParams: Promise<Message>;
 }) {
+  const { data } = await getProducts();
+
+  console.log(data);
   const searchParams = await props.searchParams;
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">

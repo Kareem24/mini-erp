@@ -3,19 +3,21 @@
 import {
   ArrowUpCircleIcon,
   BarChartIcon,
+  BookIcon,
   CameraIcon,
   CarrotIcon,
   ClipboardListIcon,
   DatabaseIcon,
+  File,
   FileCodeIcon,
   FileIcon,
   FileTextIcon,
   HelpCircleIcon,
   LayoutDashboardIcon,
-  MessageSquare,
   SearchIcon,
   SettingsIcon,
   User2Icon,
+  UserCog2Icon,
 } from "lucide-react";
 import * as React from "react";
 
@@ -30,7 +32,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import path from "path";
 
 const data = {
   user: {
@@ -44,30 +45,36 @@ const data = {
       url: "/dashboard",
       icon: LayoutDashboardIcon,
     },
-    {
-      title: "Clients",
-      url: "/dashboard/clients",
-      icon: User2Icon,
-    },
+
     {
       title: "Tasks",
       url: "/dashboard/tasks",
       icon: BarChartIcon,
     },
     {
-      title: "Messages",
-      url: "/dashboard/messages",
-      icon: MessageSquare,
-    },
-    {
-      title: "Settings",
-      url: "/dashboard/settings",
-      icon: SettingsIcon,
+      title: "Customers",
+      url: "/dashboard/customers",
+      icon: UserCog2Icon,
     },
     {
       title: "Products",
       url: "/dashboard/products",
       icon: CarrotIcon,
+    },
+    {
+      title: "Sales",
+      url: "/dashboard/sales",
+      icon: BookIcon,
+    },
+    {
+      title: "invoices",
+      url: "/dashboard/invoices",
+      icon: File,
+    },
+    {
+      title: "Settings",
+      url: "/dashboard/settings",
+      icon: SettingsIcon,
     },
   ],
   navClouds: [
