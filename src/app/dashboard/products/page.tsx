@@ -1,5 +1,4 @@
 import { getProducts } from "@/lib/data-service/get-all-products";
-import DeleteModal from "@/components/delete-modal";
 import EmptyProduct from "@/components/products/empty-product";
 import FilterProduct from "@/components/products/filter-product";
 import { FormModal } from "@/components/form-modal";

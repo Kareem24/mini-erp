@@ -6,7 +6,6 @@ import { z } from "zod";
 import FormInput from "../form-input";
 import { Button } from "../ui/button";
 import { useAddCustomer } from "@/hooks/customers/use-add-customer";
-import { createClient } from "@/utils/supabase/client";
 import { useEditCustomer } from "@/hooks/customers/use-edit-customer";
 import { Customers } from "@/lib/types";
 

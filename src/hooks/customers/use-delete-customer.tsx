@@ -1,6 +1,5 @@
 import { revalidateRoutePath } from "@/actions/revalidate-route";
 import { createClient } from "@/utils/supabase/client";
-import { validateUser } from "@/utils/validate-user";
 import { useMutation } from "@tanstack/react-query";
 
 const deleteCustomer = async (id: string) => {

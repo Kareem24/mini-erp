@@ -9,7 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
-import { notFound } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function SingleSalePage({
