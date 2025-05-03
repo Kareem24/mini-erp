@@ -55,7 +55,7 @@ const CustomerForm = ({ id, data }: CustomerFormProps) => {
   });
 
   const handleSubmit = (data: z.infer<typeof FormSchema>) => {
-    addCustomer(data, {
+    addCustomer(data as Required<typeof data>, {
       onSuccess: () => {
         form.reset();
       },
@@ -65,7 +65,7 @@ const CustomerForm = ({ id, data }: CustomerFormProps) => {
   const handleEdit = (data: z.infer<typeof FormSchema>) => {
     if (id) {
       editCustomer(
-        { customerData: data, id },
+        { customerData: { ...data } as Required<typeof data>, id },
         {
           onSuccess: () => {
             form.reset();
