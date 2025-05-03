@@ -1,4 +1,3 @@
-import { signUpAction } from "@/aciton";
 import { Button } from "@/components/ui/button";
 import {
   Card,

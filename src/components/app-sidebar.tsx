@@ -16,7 +16,6 @@ import {
   LayoutDashboardIcon,
   SearchIcon,
   SettingsIcon,
-  User2Icon,
   UserCog2Icon,
 } from "lucide-react";
 import * as React from "react";
