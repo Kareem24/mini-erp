@@ -1,4 +1,4 @@
-import { revalidateProductsPath } from "@/actions/revalidate-product";
+import { revalidateRoutePath } from "@/actions/revalidate-route";
 import { createClient } from "@/utils/supabase/client";
 import { useMutation } from "@tanstack/react-query";
 
@@ -11,7 +11,7 @@ export const useDeleteProduct = () => {
   const { isPending, mutate } = useMutation({
     mutationFn: deleteProduct,
     onSuccess: ({ data }) => {
-      revalidateProductsPath();
+      revalidateRoutePath();
       console.log(data);
     },
     onError: (error) => {

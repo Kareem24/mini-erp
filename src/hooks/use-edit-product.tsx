@@ -1,4 +1,4 @@
-import { revalidateProductsPath } from "@/actions/revalidate-product";
+import { revalidateRoutePath } from "@/actions/revalidate-route";
 import { ProductFormValues } from "@/lib/types";
 import { createClient } from "@/utils/supabase/client";
 import { useMutation } from "@tanstack/react-query";
@@ -22,7 +22,7 @@ export const useEditProduct = () => {
   const { isPending, mutate } = useMutation({
     mutationFn: editProduct,
     onSuccess: (data) => {
-      revalidateProductsPath();
+      revalidateRoutePath();
       console.log(data);
     },
     onError: (error) => {
