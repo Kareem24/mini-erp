@@ -2,19 +2,24 @@
 import { Product } from "@/lib/types";
 import { Checkbox } from "../ui/checkbox";
 
-import { Input } from "../ui/input";
-import { useState } from "react";
 import { MessageCircleWarning } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
+import { Input } from "../ui/input";
 
 interface Props {
   products: Product[];
   quantity: { [key: string]: number };
   setQuantity: React.Dispatch<React.SetStateAction<{ [key: string]: number }>>;
+  selectedProducts: Product[];
+  setSelectedProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
-const ProductList = ({ products, quantity, setQuantity }: Props) => {
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
-
+const ProductList = ({
+  products,
+  quantity,
+  setQuantity,
+  selectedProducts,
+  setSelectedProducts,
+}: Props) => {
   const handleProductToggle = (product: Product, isChecked: boolean) => {
     if (isChecked) {
       setSelectedProducts((prev) => [...prev, product]);
@@ -64,7 +69,7 @@ const ProductList = ({ products, quantity, setQuantity }: Props) => {
               className="flex items-center space-x-4 min-h-[36px]"
             >
               <Checkbox
-                //   checked={!!selectedProducts[product.id]}
+                checked={product.id in quantity}
                 onCheckedChange={(checked) => {
                   handleProductToggle(product, !!checked);
                 }}

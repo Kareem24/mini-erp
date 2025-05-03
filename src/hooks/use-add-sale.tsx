@@ -1,5 +1,4 @@
-// app/(dashboard)/sales/actions.ts
-
+import { revalidateRoutePath } from "@/actions/revalidate-route";
 import { createClient } from "@/utils/supabase/client";
 import { useMutation } from "@tanstack/react-query";
 // import { revalidatePath } from "next/cache";
@@ -87,7 +86,25 @@ async function createSale({
     throw new Error(saleItemsError.message);
   }
 
-  return { success: true, saleId: sale.id };
+  const { error: invoiceError } = await supabase.from("invoices").insert([
+    {
+      sale_id: saleId,
+      total_amount: totalAmount,
+      due_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // due in 7 days
+      created_by: (await supabase.auth.getUser()).data.user?.id,
+    },
+  ]);
+
+  if (invoiceError) {
+    throw new Error(invoiceError.message);
+  }
+
+  return {
+    success: true,
+    saleId: sale.id,
+    total_amount: totalAmount,
+    message: "Sale created successfully",
+  };
 }
 
 export const useCreateSale = () => {
@@ -101,6 +118,7 @@ export const useCreateSale = () => {
     }) => createSale({ customerId, items }),
     onSuccess: (data) => {
       console.log("Sale created successfully", data);
+      revalidateRoutePath("/dashboard/sales");
     },
     onError: (error) => {
       console.error("Error creating sale:", error);

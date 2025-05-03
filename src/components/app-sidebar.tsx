@@ -8,12 +8,12 @@ import {
   CarrotIcon,
   ClipboardListIcon,
   DatabaseIcon,
+  File,
   FileCodeIcon,
   FileIcon,
   FileTextIcon,
   HelpCircleIcon,
   LayoutDashboardIcon,
-  MessageSquare,
   SearchIcon,
   SettingsIcon,
   User2Icon,
@@ -45,11 +45,7 @@ const data = {
       url: "/dashboard",
       icon: LayoutDashboardIcon,
     },
-    {
-      title: "Clients",
-      url: "/dashboard/clients",
-      icon: User2Icon,
-    },
+
     {
       title: "Tasks",
       url: "/dashboard/tasks",
@@ -69,6 +65,11 @@ const data = {
       title: "Sales",
       url: "/dashboard/sales",
       icon: BookIcon,
+    },
+    {
+      title: "invoices",
+      url: "/dashboard/invoices",
+      icon: File,
     },
     {
       title: "Settings",

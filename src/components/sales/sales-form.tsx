@@ -26,25 +26,38 @@ const FormSchema = z.object({
 const SalesForm = ({ customers, products }: SalesFormProps) => {
   const { mutate: createSale, isPending } = useCreateSale();
   const [quantity, setQuantity] = useState<{ [key: string]: number }>({});
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    createSale({
-      customerId: data.customer,
-      items: Object.entries(quantity).map(([productId, quantity]) => ({
+    if (selectedProducts.length === 0) return;
+    const selectedProduct = Object.entries(quantity).map(
+      ([productId, quantity]) => ({
         product_id: productId,
         quantity,
-      })),
-    });
+      })
+    );
+
+    createSale(
+      {
+        customerId: data.customer,
+        items: selectedProduct,
+      },
+      {
+        onSuccess: () => {
+          setSelectedProducts([]);
+          setQuantity({});
+        },
+      }
+    );
   }
   return (
     <div>
       <Card>
-        <CardHeader>
-          <h1>Create sales</h1>
-        </CardHeader>
+        <CardHeader></CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -58,9 +71,11 @@ const SalesForm = ({ customers, products }: SalesFormProps) => {
                 products={products}
                 quantity={quantity}
                 setQuantity={setQuantity}
+                selectedProducts={selectedProducts}
+                setSelectedProducts={setSelectedProducts}
               />
               <Button type="submit" disabled={isPending}>
-                Submit
+                {isPending ? "Loading..." : "Create Sale"}
               </Button>
             </form>
           </Form>

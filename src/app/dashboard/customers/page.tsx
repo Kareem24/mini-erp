@@ -1,4 +1,3 @@
-import { getCustomers } from "@/api/get-customers";
 import CustomerForm from "@/components/customers/customer-form";
 import DeleteCustomer from "@/components/customers/delete-customer";
 import { FormModal } from "@/components/form-modal";
@@ -12,10 +11,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { getCustomers } from "@/lib/data-service/get-customers";
 import { PlusCircle } from "lucide-react";
 
-const CustomerPage = async ({ searchParams }) => {
-  const params = await searchParams;
+const CustomerPage = async ({
+  searchParams,
+}: {
+  searchParams: Record<string, string | undefined>;
+}) => {
+  const params = searchParams;
 
   const filter = {
     search: params.search || "",

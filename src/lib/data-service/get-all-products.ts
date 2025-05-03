@@ -28,3 +28,12 @@ export const getProducts = async (filter = {}) => {
 
   return query;
 };
+
+export const fetchSelectedProducts = async () => {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("products")
+    .select("id, name, price")
+    .order("name", { ascending: true });
+  return data;
+};

@@ -10,3 +10,9 @@ export const getCustomers = async (filter = {}) => {
 
   return query;
 };
+
+export const fetchSelectedCustomers = async () => {
+  const supabase = await createClient();
+  const { data } = await supabase.from("customers").select("id, full_name");
+  return data;
+};
